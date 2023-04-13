@@ -8,3 +8,5 @@ gem 'bcrypt_pbkdf', '~> 1'
 gem 'uri'
 gem 'csv'
 gem 'dotenv'
+
+
