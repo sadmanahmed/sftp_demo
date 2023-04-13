@@ -19,6 +19,9 @@ class SFTPClient
       sftp.connect!
       io = StringIO.new
       data = sftp.connect.download!("/out/COSTCENTER.CSV", io.puts, read_size: 16000)
+      # data = sftp.connect.download!("/out/OrgEntity.csv")
+
+
 
       # This 2 will be called to get those 2 csv data
       # cost_cen_data = sftp.connect.download!("/out/COSTCENTER.CSV", io.puts, read_size: 16000)
@@ -40,8 +43,8 @@ class SFTPClient
       #
       # Approach 1 for csv + encoder issue
       # file = Tempfile.create
-      # File.write(file, sftp.download!("/out/COSTCENTER.CSV"))
-      # CSV.read(file, encoding: "ISO-8859-1")
+      # File.write(file, sftp.download!("/out/OrgEntity.csv")) 'WINDOWS-1252'
+      # CSV.read(file, encoding: "WINDOWS-1252")
       # CSV.read(file, encoding: "ISO-8859-3")
 
 
@@ -54,6 +57,7 @@ class SFTPClient
       # # No file creation way
       #
       # data_opener = org_data.encode("ISO-8859-3", invalid: :replace, replace: "")
+      # data_opener = data.encode("WINDOWS-1252")
       # choose one way to get the data_opener
 
 
@@ -66,7 +70,9 @@ class SFTPClient
       # Find exact record
       # result.select {|result| result["CC_NO"] == "100151068" }
       # result.select {|result| result["LEAVE_DATE"] >= Date.today.strftime('%d.%m.%Y') }
-      # result.select {|result| result["EMP_NO"] == "bcb" }
+      # result.select {|result| result["EMP_NO"] == "sov" }
+      # How to get all the OE_NAME from orgentity csv
+      # oe_names = data.map { |hash| hash["OE_NAME"] }
 
     end
     # @session ||= Net::SSH.start(@host, @user, :password=>@password, check_host_ip: false)
